@@ -3,9 +3,7 @@ import Card from './card.js'
 import { Button, CircularProgress } from '@mui/material';
 import axios from 'axios';
 
-const url = 'http://localhost:8000/api'
-
-
+const url = process.env.REACT_APP_API_BASE_URL;
 
 const Team = (props) => {
 

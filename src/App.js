@@ -9,7 +9,7 @@ import axios from 'axios';
 import PaginatedView from './components/pagination.js';
 import Team from './components/team.js';
 
-const url = 'http://localhost:8000/api'
+const url = process.env.REACT_APP_API_BASE_URL;
 
 function App() {
   const [filter, setFilter] = useState({ domain: [], gender: [], availability: [] });

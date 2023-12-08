@@ -12,7 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { Button } from '@mui/material';
 
-const url = 'http://localhost:8000/api'
+const url = process.env.REACT_APP_API_BASE_URL;
 
 
 
