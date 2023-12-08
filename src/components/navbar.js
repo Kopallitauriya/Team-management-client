@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -8,6 +9,11 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import axios from 'axios';
+
+const url = 'http://localhost:8000'
+
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -51,9 +57,29 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar(props) {
+  const [search, setSearch] = useState('');
+
+  async function handlerSearch(e) {
+    const domainQuery = props.filter.domain.join(',')
+    const availabilityQuery = props.filter.availability.join(',')
+    const genderQuery = props.filter.gender.join(',')
+
+    
+    setSearch(e.target.value)
+    console.log(search)
+    const res = await axios.get(`${url}/?page=1&domain=${domainQuery}&availability=${availabilityQuery}&gender=${genderQuery}&search=${e.target.value}`)
+    const searchdata = res.data
+    props.setUsers(searchdata)
+
+
+
+
+  }
+
+
   return (
-    <Box sx={{flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position='sticky'>
         <Toolbar>
           <IconButton
@@ -71,13 +97,14 @@ export default function SearchAppBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-           Heliverse
+            Heliverse
           </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              onChange={handlerSearch}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />

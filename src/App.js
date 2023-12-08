@@ -14,7 +14,7 @@ function App() {
   const [filter, setFilter] = useState({ domain: [], gender: [], availability: [] });
   const [domain, setDomain] = useState([])
   const [users, setUsers] = useState({})
-  const [isLoading,setIsLoading]= useState(false)
+  const [teamID,setTeamID]= useState([])
 
 
   async function filterHandler(){
@@ -27,6 +27,21 @@ function App() {
     const userData=res.data
     setUsers(userData)
     console.log(userData)
+
+  }
+  async function clickHandler(e){
+    e.preventDefault()
+    const id=e.target.id
+    if(teamID.includes(id)){
+      const temp = teamID.filter((itm)=>itm!=id)
+      setTeamID(temp)
+      e.target.className = e.target.className.split('selected').join('');
+    }
+    else{
+      setTeamID([...teamID,id])
+      console.log(e.target.classList)
+      e.target.className += (" selected");
+    }
 
   }
 
@@ -54,7 +69,7 @@ function App() {
     <>
       <div className='container'>
         <div className='inner-container'>
-          <div className='navbar'><SearchAppBar /></div>
+          <div className='navbar'><SearchAppBar filter={filter} setFilter={setFilter} setUsers={setUsers}/></div>
 
           <div className='field'>
             <div className='sidebar'>
@@ -73,7 +88,7 @@ function App() {
 
             <div className='cardfield'>
               {users?.data?.map((itm) => {
-                return <div className='card'><Card item={itm} /></div>
+                return <button className="card"  onClick={clickHandler}><Card item={itm} /></button>
               })}
             </div>
 
