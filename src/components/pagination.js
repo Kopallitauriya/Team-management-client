@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import axios from 'axios';
 
-const url = 'http://localhost:8000'
+const url = 'http://localhost:8000/api'
 
 export default function PaginatedView(props) {
     async function paginationHandler(e, page) {
@@ -14,9 +14,8 @@ export default function PaginatedView(props) {
         const availabilityQuery = props.filter.availability.join(',')
         const genderQuery = props.filter.gender.join(',')
 
-        const res = await axios.get(`${url}/?page=${page}&domain=${domainQuery}&availability=${availabilityQuery}&gender=${genderQuery}`);
+        const res = await axios.get(`${url}/user/filter?page=${page}&domain=${domainQuery}&availability=${availabilityQuery}&gender=${genderQuery}`);
         const data = res.data
-        console.log('pagination' ,data)
         props.setUsers(data)
     }
     return (

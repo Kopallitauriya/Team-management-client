@@ -114,6 +114,9 @@ justify-content: center;
 margin-bottom: 2rem;
 }
 
+.typography::selection{
+  background-color: white;
+}
 .selected{
   background-color:rgb(168, 231, 241);
 }

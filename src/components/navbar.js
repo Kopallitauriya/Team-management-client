@@ -12,7 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { Button } from '@mui/material';
 
-const url = 'http://localhost:8000'
+const url = 'http://localhost:8000/api'
 
 
 
@@ -68,7 +68,7 @@ export default function SearchAppBar(props) {
 
     setSearch(e.target.value)
     console.log(search)
-    const res = await axios.get(`${url}/?page=1&domain=${domainQuery}&availability=${availabilityQuery}&gender=${genderQuery}&search=${e.target.value}`)
+    const res = await axios.get(`${url}/user/filter?page=1&domain=${domainQuery}&availability=${availabilityQuery}&gender=${genderQuery}&search=${e.target.value}`)
     const searchdata = res.data
     props.setUsers(searchdata)
   }
@@ -82,7 +82,7 @@ export default function SearchAppBar(props) {
       props.setShowTeams(false);
       return;
     }
-    const res = await axios.post(`${url}/api/team`, { teamID: props.teamID })
+    const res = await axios.post(`${url}/team`, { teamID: props.teamID })
     const data = res.data;
     if(data.success==false) alert(data.message)
     else props.setShowTeams(true);

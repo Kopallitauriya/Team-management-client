@@ -9,7 +9,7 @@ import axios from 'axios';
 import PaginatedView from './components/pagination.js';
 import Team from './components/team.js';
 
-const url = 'http://localhost:8000'
+const url = 'http://localhost:8000/api'
 
 function App() {
   const [filter, setFilter] = useState({ domain: [], gender: [], availability: [] });
@@ -22,9 +22,15 @@ function App() {
     const domainQuery = filter.domain.join(',')
     const availabilityQuery = filter.availability.join(',')
     const genderQuery = filter.gender.join(',')
-    // setIsLoading(true)
-    const res = await axios.get(`${url}/?page=1&domain=${domainQuery}&availability=${availabilityQuery}&gender=${genderQuery}`)
-    // setIsLoading(false)
+
+    // remove all selected cards
+    setTeamID([]);
+    const elements = document.querySelectorAll('.selected');
+    elements.forEach(e => {
+      e.className = e.className.split('selected').join('');
+    });
+
+    const res = await axios.get(`${url}/user/filter?page=1&domain=${domainQuery}&availability=${availabilityQuery}&gender=${genderQuery}`)
     const userData = res.data
     setUsers(userData)
     console.log(userData)
@@ -48,11 +54,11 @@ function App() {
 
   useEffect(() => {
     async function getAllDomains() {
-      let res = await axios.get(`${url}/domain`)
+      let res = await axios.get(`${url}/user/domain`)
       const domainData = res.data
       setDomain(domainData)
 
-      res = await axios.get(`${url}/?page=1`)
+      res = await axios.get(`${url}/user/filter?page=1`)
       const cardData = res.data
       setUsers(cardData)
       console.log(cardData)
