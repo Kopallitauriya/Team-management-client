@@ -38,14 +38,12 @@ export default function OutlinedCard(props) {
 
               {props.item.available ? "Available" : "Not Available"}
               <br />
-
+              <br />
             </Typography>
-          </CardContent>
-          <CardActions>
-            <Typography sx={{ mb: 1.5 }} color="primary">
+            <Typography sx={{ mb: 0.3 }} color="primary">
               {props.item.domain}
             </Typography>
-          </CardActions>
+          </CardContent>
 
         </Card>
     </Box>

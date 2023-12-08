@@ -10,6 +10,7 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
+import { Button } from '@mui/material';
 
 const url = 'http://localhost:8000'
 
@@ -65,16 +66,26 @@ export default function SearchAppBar(props) {
     const availabilityQuery = props.filter.availability.join(',')
     const genderQuery = props.filter.gender.join(',')
 
-    
     setSearch(e.target.value)
     console.log(search)
     const res = await axios.get(`${url}/?page=1&domain=${domainQuery}&availability=${availabilityQuery}&gender=${genderQuery}&search=${e.target.value}`)
     const searchdata = res.data
     props.setUsers(searchdata)
+  }
 
+  async function showTeamHandler() {
+    props.setShowTeams(!props.showTeams)
+  }
 
-
-
+  async function createTeamHandler() {
+    if(props.showTeams) {
+      props.setShowTeams(false);
+      return;
+    }
+    const res = await axios.post(`${url}/api/team`, { teamID: props.teamID })
+    const data = res.data;
+    if(data.success==false) alert(data.message)
+    else props.setShowTeams(true);
   }
 
 
@@ -99,6 +110,25 @@ export default function SearchAppBar(props) {
           >
             Heliverse
           </Typography>
+
+          <Button
+            onClick={createTeamHandler}
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          >
+            Create Team
+          </Button>
+          <Button
+            onClick={showTeamHandler}
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          >
+            Show Teams
+          </Button>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
