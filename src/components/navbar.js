@@ -91,8 +91,10 @@ export default function SearchAppBar(props) {
       props.setShowTeams(false);
       return;
     }
+    
     const res = await axios.post(`${url}/team`, { teamID: props.teamID })
     const data = res.data;
+    console.log('>>saved', data);
     if (data.success == false) alert(data.message)
     else props.setShowTeams(true);
   }

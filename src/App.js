@@ -103,8 +103,8 @@ function App() {
 
 
               <div className='cardfield'>
-                {users?.data?.map((itm) => {
-                  return <button className="card" onClick={clickHandler}><Card item={itm} /></button>
+                {users?.data?.map((itm, indx) => {
+                  return <button className="card" onClick={clickHandler} key={indx + 1}><Card item={itm} /></button>
                 })}
               </div>
 

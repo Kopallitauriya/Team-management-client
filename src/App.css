@@ -140,7 +140,7 @@ margin-bottom: 2rem;
   margin-top: 1rem;
 }
 .team-button-sidebar{
-width:10rem;
+width:15rem;
 
 
 }
@@ -209,6 +209,7 @@ width:10rem;
   width: 90%;
   margin: 0 2rem;
   flex-wrap: wrap;
+  margin-left: -1%;
  }
  .team-name{
   font-size: xx-small;

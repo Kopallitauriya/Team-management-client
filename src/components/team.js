@@ -10,6 +10,7 @@ const Team = (props) => {
   const [fetchTeams, setFetchTeams] = useState([])
   const [showMembers, setShowMembers] = useState([])
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
 
     async function getAllTeams() {
@@ -23,14 +24,17 @@ const Team = (props) => {
 
   async function teamSelectHandler(e) {
     e.preventDefault()
+    console.log( '>>teams', fetchTeams)
+    console.log(e);
     let data = fetchTeams.filter((itm) => itm._id === e.target.id)
+    console.log('>>team select', data);
     setShowMembers(data[0])
 
   }
 
   async function deleteHandler(e) {
     setIsLoading(true);
-    const res = await axios.delete(`${url}/team/${showMembers?._id}`)
+    await axios.delete(`${url}/team/${showMembers?._id}`)
     setIsLoading(false);
   }
 
@@ -46,7 +50,7 @@ const Team = (props) => {
             <div className='sidebar team-button-sidebar'>
               {
                 fetchTeams.map((itm) => {
-                  return <Button  className="team-button " variant='text' style={{ boxShadow: " 2px 2px 2px 0 grey" }} sx={{ mb: 5 }} id={itm._id} onClick={teamSelectHandler}><span>Team: <p className='team-name'>{itm._id}</p></span>:</Button>
+                  return <Button variant='text' style={{ boxShadow: " 2px 2px 2px 0 grey", width: "100%" }} sx={{ mb: 5, fontSize: "12px" }} id={itm._id} onClick={teamSelectHandler}>Team: {itm._id}</Button>
 
                 })}
             </div>
