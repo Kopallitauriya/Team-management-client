@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import axios from 'axios';
 
-const url = process.env.REACT_APP_API_BASE_URL;
+const url =process.env.REACT_APP_API_URL;
 
 export default function PaginatedView(props) {
     async function paginationHandler(e, page) {

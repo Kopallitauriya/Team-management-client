@@ -11,9 +11,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { Button } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const url = process.env.REACT_APP_API_BASE_URL;
 
+const url = process.env.REACT_APP_API_URL;
+const options = [
+  'Create Team',
+  'Show Team'
+
+];
+const ITEM_HEIGHT = 48;
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -78,62 +87,101 @@ export default function SearchAppBar(props) {
   }
 
   async function createTeamHandler() {
-    if(props.showTeams) {
+    if (props.showTeams) {
       props.setShowTeams(false);
       return;
     }
     const res = await axios.post(`${url}/team`, { teamID: props.teamID })
     const data = res.data;
-    if(data.success==false) alert(data.message)
+    if (data.success == false) alert(data.message)
     else props.setShowTeams(true);
   }
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const createButtonHandler = async (e) => {
+    createTeamHandler()
+    handleClose()
+
+  }
+  const showButtonHandler = async (e) => {
+    showTeamHandler()
+    handleClose()
+
+  }
+
+
 
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='sticky'>
         <Toolbar>
+
           <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
+            
+            aria-label="more"
+            id="long-button"
+            aria-controls={open ? 'long-menu' : undefined}
+            aria-expanded={open ? 'true' : undefined}
+            aria-haspopup="true"
+            onClick={handleClick}
           >
-            <MenuIcon />
+            <MoreVertIcon />
           </IconButton>
+          <Menu
+            id="long-menu"
+            MenuListProps={{
+              'aria-labelledby': 'long-button',
+            }}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            PaperProps={{
+              style: {
+                maxHeight: ITEM_HEIGHT * 4.5,
+                width: '20ch',
+              },
+            }}
+          >
+
+            <MenuItem onClick={createButtonHandler}>Create Team</MenuItem>
+            <MenuItem onClick={showButtonHandler}>Show Team</MenuItem>
+
+          </Menu>
+
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Heliverse
+            <a href={"/"} className='home'>Heliverse</a>
           </Typography>
 
           <Button
-            onClick={createTeamHandler}
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
+            onClick={createTeamHandler} variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }}>
             Create Team
           </Button>
-          <Button
-            onClick={showTeamHandler}
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
+
+
+          <Button onClick={showTeamHandler} variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }}>
             Show Teams
           </Button>
+
+
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              id="navbar-search"
               onChange={handlerSearch}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}

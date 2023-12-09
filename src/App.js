@@ -9,7 +9,7 @@ import axios from 'axios';
 import PaginatedView from './components/pagination.js';
 import Team from './components/team.js';
 
-const url = process.env.REACT_APP_API_BASE_URL;
+const url = process.env.REACT_APP_API_URL;
 
 function App() {
   const [filter, setFilter] = useState({ domain: [], gender: [], availability: [] });
@@ -76,8 +76,12 @@ function App() {
     <>
       <div className='container'>
         <div className='inner-container'>
-          <div className='navbar'><SearchAppBar filter={filter} setFilter={setFilter} setUsers={setUsers} teamID={teamID} setShowTeams={setShowTeams} showTeams={showTeams}/></div>
+          <div className='navbar'><SearchAppBar sx={{ width: "100%" }} filter={filter} setFilter={setFilter} setUsers={setUsers} teamID={teamID} setShowTeams={setShowTeams} showTeams={showTeams} /></div>
           {showTeams ? <Team /> : <>
+            {/* <div className='responsive-button'>
+              <button id='navbar-button'>create team</button>
+              <button id='navbar-button'>show teams</button>
+            </div> */}
 
             <div className='field'>
               <div className='sidebar'>
@@ -87,12 +91,16 @@ function App() {
                 <div className='filter-fields'>
                   <CheckButtonsGroup title={'Gender'} items={['Female', 'Male', 'Other']} filter={filter} setFilter={setFilter} />
                 </div>
-                <div className='filter-fields'>
-                  <CheckButtonsGroup title={'Availability'} items={['false', 'true']} filter={filter} setFilter={setFilter} />
+                <div className='filter-box'>
+                  <div className='filter-fields'>
+                    <CheckButtonsGroup title={'Availability'} items={['false', 'true']} filter={filter} setFilter={setFilter} />
+                  </div>
+                    <Button style={{width:"20px"}} variant="contained" onClick={filterHandler}>apply</Button>
                 </div>
 
-                <Button variant="contained" onClick={filterHandler}>apply</Button>
               </div>
+
+
 
               <div className='cardfield'>
                 {users?.data?.map((itm) => {

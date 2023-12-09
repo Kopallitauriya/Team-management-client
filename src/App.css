@@ -2,13 +2,17 @@
   padding: 0;
   margin: 0;
   background-color: rgb(255, 255, 255);
-  width: 100vw;
+  width: 100%;
 }
 
 .inner-container {
   display: flex;
   flex-direction: column;
 
+}
+.home{
+  text-decoration: none;
+  color: white;
 }
 
 .navbar {
@@ -19,17 +23,22 @@
   width: 100%;
   z-index: 10;
 }
+.filter-box{
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+}
 
 .field {
   background-color: rgb(255, 255, 255);
   /* border: 2px solid black; */
-  width: 100%;
+  width: 100vw;
   display: flex;
 
 }
 
 .sidebar {
-  /* border-right: 1px solid rgb(233, 233, 233); */
+  /* border-right:2px solid rgb(231, 231, 231); */
   width: 17%;
   background-color: rgba(255, 255, 255, 0.575);
   top: 4rem;
@@ -51,11 +60,12 @@
 .lists {
   margin: 1px;
   font-weight: 100;
+
 }
+
 
 .formlabel {
   margin: 10px 2rem 2px;
-
 }
 
 .cardfield {
@@ -69,7 +79,7 @@
   margin: 4.5rem 3rem;
   margin-top: 2rem;
 
-  margin-left: 1rem;
+  margin-left: 4rem;
 
 }
 
@@ -119,4 +129,100 @@ margin-bottom: 2rem;
 }
 .selected{
   background-color:rgb(168, 231, 241);
+}
+.responsive-button{
+
+  height: 3rem;
+  width:20rem;
+  display: flex;
+  /* border: 1px solid black; */
+  justify-content: space-evenly;
+  margin-top: 1rem;
+}
+.team-button-sidebar{
+width:10rem;
+
+
+}
+.team-name{
+  font-size: x-small;
+}
+
+ #navbar-button{
+  /* margin-top: 0.5rem;
+  margin-left: -4rem; */
+  /* display: none; */
+  height: 30px;
+  width: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+ }
+ #long-button{
+  display: none;
+ }
+
+@media only screen and (max-width: 819px) {
+  .cardfield {
+    border-left:none;
+  }
+ 
+}
+
+
+
+@media only screen and (max-width : 609px){
+  
+ .cardfield{
+  justify-content: flex-end;
+ }
+ #long-button{
+  display: block;
+}
+
+}
+
+@media only screen and (max-width :546px){
+ .field{
+  display: flex;
+  flex-direction: column;
+ }
+ .sidebar{
+ 
+  margin: 2rem 0.5rem 1rem 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* border: 1px solid black; */
+ 
+
+ }
+ .sidebar{
+  width:100%;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+ }
+ 
+ 
+ .team-button-sidebar{
+  width: 90%;
+  margin: 0 2rem;
+  flex-wrap: wrap;
+ }
+ .team-name{
+  font-size: xx-small;
+}
+
+.cardfield{
+  justify-self: center;
+  align-items: center;
+}
+.lists {
+  margin-bottom:0 ;
+  margin-top:-7px ;
+  font-size: auto ;
+}
+
+
 }
