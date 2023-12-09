@@ -91,13 +91,15 @@ export default function SearchAppBar(props) {
       props.setShowTeams(false);
       return;
     }
-    
+    console.log(props.teamID)
     const res = await axios.post(`${url}/team`, { teamID: props.teamID })
     const data = res.data;
     console.log('>>saved', data);
     if (data.success == false) alert(data.message)
     else props.setShowTeams(true);
   }
+
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

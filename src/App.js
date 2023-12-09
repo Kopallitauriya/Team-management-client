@@ -32,6 +32,7 @@ function App() {
 
     const res = await axios.get(`${url}/user/filter?page=1&domain=${domainQuery}&availability=${availabilityQuery}&gender=${genderQuery}`)
     const userData = res.data
+    console.log(userData)
     setUsers(userData)
     console.log(userData)
 
