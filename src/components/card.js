@@ -24,7 +24,7 @@ export default function OutlinedCard(props) {
   return (
     <Box sx={{ minWidth: 275 }}>
       <Card variant="outlined">
-        <CardContent className='cardcontent' id={props.item.id}>
+        <CardContent className='cardcontent' id={props.item._id}>
           <Typography className="typography" variant="h5" component="div" >
             {props.item.first_name} {props.item.last_name}
           </Typography>
@@ -36,7 +36,7 @@ export default function OutlinedCard(props) {
           </Typography>
           <Typography className="typography" variant="body2">
 
-            {props.item.available ? "Available" : "Not Available"}
+            {props.item.availiable ? "Available" : "Not Available"}
             <br />
             <br />
           </Typography>
